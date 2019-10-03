@@ -6,24 +6,25 @@ using UnityEngine.AI;
 public class Player : MonoBehaviour
 {
     public LayerMask clickable;
-    private NavMeshAgent navMeshAgent;
+
+    public float moveSpeed;
 
     private void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, 100, clickable))
             {
-                navMeshAgent.SetDestination(hit.point);
+                Operations.movement(this.transform, hit.point, moveSpeed);
             }
         }
     }
